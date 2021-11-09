@@ -23,7 +23,7 @@ function insert_snippets_into_table(t, paths_table)
         local ft = str_split[2]:match("%w+")
         local sm = require("moll_snippets.lib." .. snip_mname)
 
-        print(snip_mname, ft)
+        -- print(snip_mname, ft)
 
         t[ft] = sm
         -- print(t, ft)
