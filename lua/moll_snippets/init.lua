@@ -94,59 +94,19 @@ local M = {}
 -- print(i(vim.api.nvim_get_runtime_file("moll_snippets/lib/*.lua", true)))
 
 
-
--- { "/Users/hjalmarjakobsson/.config/nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/cheovim/start/cheovim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/aerial.nvim/lua", "
--- /Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/Catppuccino.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/dashboard-nvim/lua", "/Users/hjalmarjakobsson/.local/share
--- /nvim/site/pack/packer/start/diffview.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/doom-themes.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/firenvim
--- /lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/galaxyline.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/github-nvim-theme/lua", "/Users/hjalmarjakobsson/.l
--- ocal/share/nvim/site/pack/packer/start/nabla.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/nvim-bqf/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/nvim-lspc
--- onfig/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/nvim-lspmanager/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/nvim-mapper/lua", "/Users/hjalmarjakobsson/.lo
--- cal/share/nvim/site/pack/packer/start/nvim-transparent/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/persistence.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/st
--- art/quickmath.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/registers.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/sqlite.lua/lua", "/Users/hjalmarja
--- kobsson/.local/share/nvim/site/pack/packer/start/telescope-bibtex.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-bookmarks.nvim/lua", "/Users/hjalmarjakobsson/.local/share/
--- nvim/site/pack/packer/start/telescope-cheat.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-dict.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start
--- /telescope-emoji.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-frecency.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-ghq.nvim/lua
--- ", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-heading.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-luasnip.nvim/lua", "/Users/hjalmarjako
--- bsson/.local/share/nvim/site/pack/packer/start/telescope-node-modules.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-packer.nvim/lua", "/Users/hjalmarjakobsson/.local/share
--- /nvim/site/pack/packer/start/telescope-project.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-repo.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/st
--- art/telescope-tele-tabby.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-test.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/telescope-z.nvim/l
--- ua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/venn.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/vim-be-good/lua", "/Users/hjalmarjakobsson/.local/share/nvi
--- m/site/pack/packer/start/vim-moonfly-colors/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/start/vim-nightfly-guicolors/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/ani
--- seed/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/moll-snippets.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/LuaSnip/lua", "/Users/hjalmarjakobsson/.local/sh
--- are/nvim/site/pack/packer/opt/nvim-autopairs/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/which-key.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/nvim-ts-cont
--- ext-commentstring/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/nvim-tree-docs/lua", "/Users/hjalmarja
--- kobsson/.local/share/nvim/site/pack/packer/opt/neorg/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/nvim-treesitter/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/tod
--- o-comments.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/nvim-colorizer.lua/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/indent-blankline.nvim/lua", "/Users/h
--- jalmarjakobsson/.local/share/nvim/site/pack/packer/opt/cmd-parser.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/range-highlight.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/s
--- ite/pack/packer/opt/gitsigns.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/TrueZen.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/kommentary/lua", "/Users/
--- hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/DAPInstall.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/nvim-dap-ui/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack
--- /packer/opt/nvim-dap/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/bufferline.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/rest.nvim/lua", "/Users/hjalmarjako
--- bsson/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/plenary.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/
--- opt/lua-dev.nvim/lua", "/Users/hjalmarjakobsson/.local/share/nvim/site/pack/packer/opt/packer.nvim/lua", "/usr/local/Cellar/neovim/HEAD-2481b18_1/share/nvim/runtime/lua", "/Users/hjalmarjakobsson/code/plugins/nvi
--- m/lookup.nvim/lua" }
-
-function print_fnames()
-    print("print_fnames")
-
+function M.load_snippets()
     local nvim_snippets = vim.api.nvim_get_runtime_file("lua/snippets/*.lua", true)
     local moll_snippets = vim.api.nvim_get_runtime_file("lua/moll_snippets/lib/*.lua", true)
 
     -- print(i(vim.api.nvim_get_runtime_file("lua/moll_snippets/lib/*.lua", true)))
 
     for _, fname in ipairs(moll_snippets) do
-        -- print("arstarstarstarstrst")
-        -- local str_split = str_2_table(fname, "-")
         print( get_file_name( fname ) )
+        local str_split = str_2_table(fname, "-")
         -- print( _ )
         -- print(str_split[1])
         -- vim.inspect(str_split)
     end
-
-end
-
-function M.load_snippets()
-    -- print("::: moll snip :::")
-    print_fnames()
 end
 
 function M.test()
