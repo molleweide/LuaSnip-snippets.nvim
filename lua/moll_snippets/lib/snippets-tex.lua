@@ -38,7 +38,7 @@ return {
 	}),
 
 
-	-- --- lemon snippets
+	-- --- lemon moll_snippets
 	-- ls.parser.parse_snippet({trig = ";"}, "\\$$1\\$$0"),
 	-- s({trig = "(s*)sec", wordTrig = true, regTrig = true}, {
 	-- 	f(function(args) return {"\\"..string.rep("sub", string.len(args[1].captures[1]))} end, {}),

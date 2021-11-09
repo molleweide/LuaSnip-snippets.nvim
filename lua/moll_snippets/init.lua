@@ -23,16 +23,20 @@ function insert_snippets_into_table(t, paths_table)
         local ft = str_split[2]:match("%w+")
         local sm = require("moll_snippets.lib." .. snip_mname)
 
-        -- print(snip_mname, ft)
-
-        t[ft] = sm
-        -- print(t, ft)
-        -- table.insert(t[ft], sm)
+        if t[ft] == nil then
+            t[ft] = sm
+        else
+            for _, s in pairs(sm) do
+                table.insert(t[ft], s)
+            end
+        end
     end
     return t
 end
 
 function M.load_snippets()
+
+    print("load snip")
 
     local t = {}
 
