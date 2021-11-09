@@ -20,7 +20,7 @@ local events = require("luasnip.util.events")
 
 -- print("... in lua -> `" .. ... .. "`")
 
-local utils = require("moll_snippets.utils")
+local utils = require("snippets.utils")
 
 return {
 

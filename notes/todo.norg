@@ -1,0 +1,10 @@
+@document.meta
+    title: todo
+    description:
+    author: hjalmarjakobsson
+    categories:
+    created: 2021-11-09
+    version: 0.0.8
+@end
+
+* pass file path load_snippets

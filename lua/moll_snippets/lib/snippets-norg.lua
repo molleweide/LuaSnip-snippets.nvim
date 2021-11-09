@@ -18,7 +18,7 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 local events = require("luasnip.util.events")
 
-local utils = require("snippets.utils")
+local utils = require("moll_snippets.utils")
 
 return {
 
