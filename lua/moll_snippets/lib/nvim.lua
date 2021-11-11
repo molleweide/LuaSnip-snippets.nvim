@@ -10,4 +10,7 @@ local isn = ls.indent_snippet_node
 local utils = require("moll_snippets.utils")
 
 return {
+    lua = {
+
+    }
 }

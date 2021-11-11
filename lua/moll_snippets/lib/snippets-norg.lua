@@ -21,11 +21,11 @@ local events = require("luasnip.util.events")
 local utils = require("moll_snippets.utils")
 
 return {
-
-    s("norg code", {
-        t({ "@code", "" }),
-        i(1, "code goes here.."),
-        t({ "", "@end"}),
-    }),
-
+    norg = {
+        s("norg code", {
+            t({ "@code", "" }),
+            i(1, "code goes here.."),
+            t({ "", "@end"}),
+        }),
+    }
 }

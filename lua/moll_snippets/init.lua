@@ -13,30 +13,26 @@ function get_file_name(file)
 end
 
 function insert_snippets_into_table(t, paths_table)
-    local t = t
     for _, snip_fpath in ipairs(paths_table) do
-
-        local snip_fname = get_file_name( snip_fpath )
-        local snip_mname = snip_fname:sub(1,-5)
-        local str_split = str_2_table(snip_mname, "-")
-
-        local ft = str_split[2]:match("%w+")
+        local snip_mname = get_file_name( snip_fpath ):sub(1,-5)
         local sm = require("moll_snippets.lib." .. snip_mname)
-
-        if t[ft] == nil then
-            t[ft] = sm
-        else
-            for _, s in pairs(sm) do
-                table.insert(t[ft], s)
+        for ft, snips in pairs(sm) do
+            if t[ft] == nil then
+                t[ft] = snips
+            else
+                for _, s in pairs(snips) do
+                    table.insert(t[ft], s)
+                end
             end
         end
+
     end
     return t
 end
 
 function M.load_snippets()
 
-    print("load snip")
+    print("load moll-snippets")
 
     local t = {}
 
@@ -50,4 +46,3 @@ function M.load_snippets()
 end
 
 return M
-

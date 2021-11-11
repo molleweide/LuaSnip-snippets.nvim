@@ -23,7 +23,7 @@ local events = require("luasnip.util.events")
 local utils = require("moll_snippets.utils")
 
 return {
-
+    lua = {
     -- LEARNING ---------
 
     -- isn indent node >>
@@ -38,11 +38,11 @@ return {
     -- PRINTS -----------
 
     s("lua print var", {
-        t("print(\""),
-        i(1, "desrc"),
-        t(": \" .. "),
-        i(2, "the_variable"),
-        t(")"),
+    t("print(\""),
+    i(1, "desrc"),
+    t(": \" .. "),
+    i(2, "the_variable"),
+    t(")"),
     }),
 
 
@@ -53,36 +53,36 @@ return {
     -- TODO: convert to lua
 	-- Very long example for a java class.
 	s("fndef", {
-		d(6, utils.luadocsnip, { 2, 4, 5 }),
-		t({ "", "" }),
-		c(1, {
-			t("public "),
-			t("private "),
-		}),
-		c(2, {
-			t("void"),
-			t("String"),
-			t("char"),
-			t("int"),
-			t("double"),
-			t("boolean"),
-			i(nil, ""),
-		}),
-		t(" "),
-		i(3, "myFunc"),
-		t("("),
-		i(4),
-		t(")"),
-		c(5, {
-			t(""),
-			sn(nil, {
-				t({ "", " throws " }),
-				i(1),
-			}),
-		}),
-		t({ " {", "\t" }),
-		i(0),
-		t({ "", "}" }),
+	d(6, utils.luadocsnip, { 2, 4, 5 }),
+	t({ "", "" }),
+	c(1, {
+	t("public "),
+	t("private "),
+	}),
+	c(2, {
+	t("void"),
+	t("String"),
+	t("char"),
+	t("int"),
+	t("double"),
+	t("boolean"),
+	i(nil, ""),
+	}),
+	t(" "),
+	i(3, "myFunc"),
+	t("("),
+	i(4),
+	t(")"),
+	c(5, {
+	t(""),
+	sn(nil, {
+	t({ "", " throws " }),
+	i(1),
+	}),
+	}),
+	t({ " {", "\t" }),
+	i(0),
+	t({ "", "}" }),
 	}),
 
     -- inline
@@ -93,18 +93,18 @@ return {
     -- lua doc params
 
     s("fn basic", {
-		t("-- @param: "), f(utils.copy, 2),
-		t({"","local "}), i(1), t(" = function("),i(2,"fn param"),t({ ")", "\t" }),
-		i(0), -- Last Placeholder, exit Point of the snippet. EVERY 'outer' SNIPPET NEEDS Placeholder 0.
-	 	t({ "", "end" }),
+	t("-- @param: "), f(utils.copy, 2),
+	t({"","local "}), i(1), t(" = function("),i(2,"fn param"),t({ ")", "\t" }),
+	i(0), -- Last Placeholder, exit Point of the snippet. EVERY 'outer' SNIPPET NEEDS Placeholder 0.
+	t({ "", "end" }),
 	}),
 
     s("fn module", {
-        -- make new line into snippet
-		t("-- @param: "), f(utils.copy, 3), t({"",""}),
-		i(1, "modname"), t("."), i(2, "fnname"), t(" = function("),i(3,"fn param"),t({ ")", "\t" }),
-		i(0), -- Last Placeholder, exit Point of the snippet. EVERY 'outer' SNIPPET NEEDS Placeholder 0.
-	 	t({ "", "end" }),
+    -- make new line into snippet
+	t("-- @param: "), f(utils.copy, 3), t({"",""}),
+	i(1, "modname"), t("."), i(2, "fnname"), t(" = function("),i(3,"fn param"),t({ ")", "\t" }),
+	i(0), -- Last Placeholder, exit Point of the snippet. EVERY 'outer' SNIPPET NEEDS Placeholder 0.
+	t({ "", "end" }),
 	}),
 
 	-------------------------------------
@@ -131,25 +131,25 @@ return {
 	-- elseif
 
 	s({trig="if basic", wordTrig=true}, {
-		t({"if "}),
-		i(1),
-		t({" then", "\t"}),
-		i(0),
-		t({"", "end"})
+	t({"if "}),
+	i(1),
+	t({" then", "\t"}),
+	i(0),
+	t({"", "end"})
 	}),
 
 	s({trig="ee", wordTrig=true}, {
-		t({"else", "\t"}),
-		i(0),
+	t({"else", "\t"}),
+	i(0),
 	}),
 
     -- LOOPS ----------------------------------------
 
 	s("for", {
-		t"for ", c(1, {
-			sn(nil, {i(1, "k"), t", ", i(2, "v"), t" in ", c(3, {t"pairs", t"ipairs"}), t"(", i(4), t")"}),
-			sn(nil, {i(1, "i"), t" = ", i(2), t", ", i(3), })
-		}), t{" do", "\t"}, i(0), t{"", "end"}
+	t"for ", c(1, {
+	sn(nil, {i(1, "k"), t", ", i(2, "v"), t" in ", c(3, {t"pairs", t"ipairs"}), t"(", i(4), t")"}),
+	sn(nil, {i(1, "i"), t" = ", i(2), t", ", i(3), })
+	}), t{" do", "\t"}, i(0), t{"", "end"}
 	})
 
 	---------------------------
@@ -173,5 +173,5 @@ return {
     ---       i/o       ---
     -----------------------
 	-- fs.write_file(releases_database_path, release .. "\n", "a+")
-
+}
 }

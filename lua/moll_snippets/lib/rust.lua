@@ -17,10 +17,12 @@ local events = require("luasnip.util.events")
 local util = require("luasnip.util.util")
 
 return {
-	ls.parser.parse_snippet({trig = "fn"}, [[
+    rust = {
+        ls.parser.parse_snippet({trig = "fn"}, [[
 /// $1
 fn $2($3) ${4:-> ${5:i32}} \{
 	$0
 \}
 ]])
+    }
 }
