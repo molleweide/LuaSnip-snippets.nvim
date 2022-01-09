@@ -63,56 +63,32 @@ return {
         -- TODO: date
         -- yyyy-mm-dd
         -- TODO: gtd project
-          -- @code norg
+        -- @code norg
 
-          --     #contexts §context_name§ §context_name§ ...
-          --     #time.start §date§
-          --     #time.due §date§
-          --     * §Project name§
-          --     - [ ] §Task description§
-          -- @end
+        --     #contexts §context_name§ §context_name§ ...
+        --     #time.start §date§
+        --     #time.due §date§
+        --     * §Project name§
+        --     - [ ] §Task description§
+        -- @end
+
+        -- @code norg
+        -- | §Area Of Focus name§
+        -- marker body
+        -- | _
+        -- @end
+        s("neorg focus area", {
+            t("| $"), i(1, "focus_area_name"), t({ "$", "" }),
+            i(1, "marker body"),
+            t({ "", "| _"}),
+        }),
 
 
+        -- TODO: table snippets
 
-      -- @code norg
-      -- | §Area Of Focus name§
-      -- marker end
-      -- | _
-      -- @end
+        -- TODO: media images / video
 
-
-      -- Below is an example with AOF's:
-
-      -- @code norg
-      -- | This is an AOF
-
-      -- * This is a project
-      -- - [ ] This is a task inside a project
-
-      -- * This is another project
-      -- - [ ] This is a task inside the other project
-
-      -- * This is a very large project
-      --  ** This is a heading for the project
-      --     - [ ] This is a task
-      --  ** This is another heading for the project
-      --     - [ ] This is a task
-
-      -- | _
-
-      -- This is not in an AOF
-      -- @end
-        --
-
-    -- TODO: quotes / comments
-        -- would it be possible to implement this with lua snippet dynamic
-        -- snippets?
-
-    -- TODO: table snippets
-
-    -- TODO: media images / video
-
-    -- TODO: math
+        -- TODO: math
 
 
 
