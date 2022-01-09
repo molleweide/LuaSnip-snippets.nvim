@@ -62,15 +62,23 @@ return {
         -- TODO: GTD
         -- TODO: date
         -- yyyy-mm-dd
+
+
         -- TODO: gtd project
         -- @code norg
-
         --     #contexts §context_name§ §context_name§ ...
         --     #time.start §date§
         --     #time.due §date§
         --     * §Project name§
         --     - [ ] §Task description§
         -- @end
+        s("neorg project starter", {
+            t("#context $"), i(1, "context name"), t({ "$", "" }),
+            t("#time.start $"), i(2, "date"), t({ "$", "" }),
+            t("#time.due $"), i(3, "date"), t({ "$", "" }),
+            t("* $"), i(4, "project name"), t({ "$", "" }),
+            t("- [ ] $"), i(5, "task description"), t("$"),
+        }),
 
         -- @code norg
         -- | §Area Of Focus name§
@@ -85,11 +93,27 @@ return {
 
 
         -- TODO: table snippets
+      -- @table
+      -- Column 1 | Column 2
+      -- -
+      -- This is in a new row | which got separated by a horizontal line
+      -- And check this out: I can span the columns!
+      -- @end
 
         -- TODO: media images / video
+      -- @image png svg jpeg jfif exif
+      -- <base64-encoded image data>
+      -- @end
+
+      -- @embed image
+      -- https://github.com/vhyrro/neorg/blob/main/res/neorg.svg
+      -- @end
 
         -- TODO: math
 
+      -- @math
+      -- f(x) = y
+      -- @end
 
 
     }
