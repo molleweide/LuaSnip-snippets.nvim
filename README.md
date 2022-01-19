@@ -4,20 +4,40 @@ This is a plugin that aims to provide a community driven library of [LuaSnip](ht
 
 ## Installation
 
-Using [packer](https://github.com/wbthomason/packer.nvim):
+The following is an [example](https://github.com/NTBBloodbath/doom-nvim/blob/main/lua/doom/modules/init.lua) of how LuaSnip is installed in [doom-nvim](https://github.com/NTBBloodbath/doom-nvim) with the [packer](https://github.com/wbthomason/packer.nvim) package manager.
 
 ```lua
-use({
+  use({
+    "hrsh7th/nvim-cmp",
+    commit = pin_commit("2e4270d02843d15510b3549354e238788ca07ca5"),
+    wants = { "LuaSnip" },
+    requires = {
+      {
         "L3MON4D3/LuaSnip",
+        commit = pin_commit("a54b21aee0423dbdce121c858ad6a88a58ef6e0f"),
         event = "BufReadPre",
         wants = "friendly-snippets",
-        config = require("path.to.config.below"),
+        config = require("doom.modules.config.doom-luasnip"),
+        disable = disabled_snippets,
         requires = {
-        "rafamadriz/friendly-snippets",
-        -- "molleweide/moll-snippets.nvim",
+          "rafamadriz/friendly-snippets",
+          -- "molleweide/moll-snippets.nvim",
+          "$HOME/code/plugins/nvim/moll-snippets.nvim",
         },
-        })
-
+      },
+      {
+        "windwp/nvim-autopairs",
+        commit = pin_commit("e6b1870cd2e319f467f99188f99b1c3efc5824d2"),
+        config = require("doom.modules.config.doom-autopairs"),
+        disable = disabled_autopairs,
+        event = "BufReadPre",
+      },
+    },
+    config = require("doom.modules.config.doom-cmp"),
+    disable = disabled_lsp,
+    event = "InsertEnter",
+  })
+ })
 ```
 
 ## Config
@@ -29,13 +49,13 @@ return function()
 
     local luasnip = require("luasnip")
 
-    -- be sure to load this before vscode snippets
+    -- be sure to load this first since it overwrites the snippets table.
     luasnip.snippets = require("luasnip-snippets").load_snippets()
 
-    require("luasnip/loaders/from_vscode").load()
-
-    end
-    ```
+    ...
+    ...
+end
+```
 
 ## User snippets
 
