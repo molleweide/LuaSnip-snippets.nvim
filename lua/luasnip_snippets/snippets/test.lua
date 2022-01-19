@@ -19,7 +19,7 @@ local conds = require("luasnip.extras.expand_conditions")
 local isn = ls.indent_snippet_node
 local events = require("luasnip.util.events")
 
-local utils = require("moll_snippets.utils")
+local utils = require("luasnip_snippets.utils")
 
 -- @param: cursline, trigmatch, captures
 local co = function(cursline, trigmatch, captures)

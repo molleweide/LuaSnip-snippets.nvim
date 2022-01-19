@@ -41,7 +41,7 @@ end
 
 function M.load_snippets()
 
-    print("load moll-snippets")
+    print("load luasnip_snippets")
 
     local t = {}
 

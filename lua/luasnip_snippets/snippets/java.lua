@@ -18,7 +18,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
-local utils = require("moll_snippets.utils")
+local utils = require("luasnip_snippets.utils")
 
 return {
 	java = {

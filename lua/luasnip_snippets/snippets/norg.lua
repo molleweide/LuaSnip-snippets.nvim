@@ -18,7 +18,7 @@ local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 local events = require("luasnip.util.events")
 
-local utils = require("moll_snippets.utils")
+local utils = require("luasnip_snippets.utils")
 
 -- link to spec
 -- https://github.com/nvim-neorg/neorg/blob/main/docs/NFF-0.1-spec.md#tags

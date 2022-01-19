@@ -21,8 +21,7 @@ The following is an [example](https://github.com/NTBBloodbath/doom-nvim/blob/mai
         disable = disabled_snippets,
         requires = {
           "rafamadriz/friendly-snippets",
-          -- "molleweide/moll-snippets.nvim",
-          "$HOME/code/plugins/nvim/moll-snippets.nvim",
+          "luasnip_snippets.nvim",
         },
       },
       {

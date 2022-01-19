@@ -7,7 +7,7 @@ local d = ls.dynamic_node
 local c = ls.choice_node
 local isn = ls.indent_snippet_node
 
-local utils = require("moll_snippets.utils")
+local utils = require("luasnip_snippets.utils")
 
 return {
     lua = {

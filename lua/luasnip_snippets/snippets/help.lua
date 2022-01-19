@@ -5,7 +5,7 @@ local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 
-local utils = require("moll_snippets.utils")
+local utils = require("luasnip_snippets.utils")
 
 return {
 	help = {
