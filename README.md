@@ -44,7 +44,7 @@ The following is an [example](https://github.com/NTBBloodbath/doom-nvim/blob/mai
 
 This snippet solely aims to show how you hook [LuaSnip](https://github.com/L3MON4D3/LuaSnip) into your config. Be sure to check out `LuaSnip` repo for further configurations.
 
-    ```lua
+```lua
 return function()
 
     local luasnip = require("luasnip")
@@ -59,13 +59,13 @@ end
 
 ## User snippets
 
-    `LuaSnip-snippets` will comes with pre-installed snippets but you can also add your own snippets by putting a lua file under `lua/snippets/my-snippet-file.lua` in your `vimrc` directory.
+You add your own snippets by putting a lua file under `lua/snippets/my-snippet-file.lua` in your `vimrc` directory.
 
 ## How to compose snippets
 
-    Here follows an example of a snippet file that you can put inside your `lua/snippets` directory. As you can see below the snippets are assigned to their respective language key, and hence if you like you can either put all your snippets into their own file or you can put all of your snippets in a single file - just be sure to assign them to the correct language key.
+Here follows an example of a snippet file that you can put inside your `lua/snippets` directory. As you can see below the snippets are assigned to their respective language key, and hence if you like you can either put all your snippets into their own file or you can put all of your snippets in a single file - just be sure to assign them to the correct language key.
 
-    ```lua
+```lua
     local ls = require("luasnip")
     local s = ls.snippet
     local t = ls.text_node
