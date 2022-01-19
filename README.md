@@ -113,7 +113,8 @@ I encourage anyone who wants to submit their own snippets. At the moment this pl
 ## todo
 
 | title  | description |
-| ------------- | ------------- |
-| add credits  | during the initial development I crawled github for various snippets. Authors need to be credited approtriately.  |
-| helpers  | Add more helper snippets for making it easy to create luasnippets which can seem rather daunting at first.  |
+| --------| ------------- |
+| setup   | move away from refering to how doom-nvim installs LuaSnip to a simple general installer instructions. |
+| credits | during the initial development I crawled github for various snippets. Authors need to be credited approtriately. |
+| helpers | Add more helper snippets for making it easy to create luasnippets which can seem rather daunting at first. |
 
