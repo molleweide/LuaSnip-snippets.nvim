@@ -1,4 +1,4 @@
-# luasnip-lib
+# LuaSnip-snippets
 
 This is a plugin that aims to provide a community driven library of [LuaSnip](https://github.com/L3MON4D3/LuaSnip) snipets and also make it easy to add LuaSnip snippets to neovim
 
@@ -110,7 +110,7 @@ Here follows an example of a snippet file that you can put inside your `lua/snip
 
 I encourage anyone who wants to submit their own snippets. At the moment this plugin is quite small but it has some handy snippets already. If you decide to submit snippets please add them to their appropriate language file if it exists or create a new one if necessary. Otherwise please provide a good explanation for why you have grouped multiple language snippets into one file.
 
-## todo
+## TODO
 
 | title  | description |
 | --------| ------------- |

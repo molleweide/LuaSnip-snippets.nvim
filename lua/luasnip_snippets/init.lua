@@ -1,9 +1,9 @@
 local M = {}
 
 local nvim_snippets_path = "lua/snippets/"
-local moll_snippets_path = "lua/moll_snippets/lib/"
+local luasnip_snippets_path = "lua/luasnip_snippets/snippets/"
 local nvim_snippets_modules = "snippets."
-local moll_snippets_modules = "moll_snippets.lib."
+local luasnip_snippets_modules = "luasnip_snippets.snippets."
 
 function str_2_table(s, delimiter)
     result = {};
@@ -46,10 +46,10 @@ function M.load_snippets()
     local t = {}
 
     local nvim_snippets = vim.api.nvim_get_runtime_file( nvim_snippets_path .. "*.lua", true)
-    local moll_snippets = vim.api.nvim_get_runtime_file( moll_snippets_path .. "*.lua", true)
+    local luasnip_snippets = vim.api.nvim_get_runtime_file( luasnip_snippets_path .. "*.lua", true)
 
     t = insert_snippets_into_table(t, nvim_snippets_modules, nvim_snippets)
-    t = insert_snippets_into_table(t, moll_snippets_modules, moll_snippets)
+    t = insert_snippets_into_table(t, luasnip_snippets_modules, luasnip_snippets)
 
     return t
 end
