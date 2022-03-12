@@ -97,7 +97,7 @@ return {
         -- )
 	    s("test dynamic", {
 	        t("AAA "),
-	        d(1, utils.date_input, {}, "%A, %B %d of %Y"),
+	        d(1, utils.date_input, {}, { user_args = "%A, %B %d of %Y" }),
 	        t(" BBB "),
 	        i(2, "second"),
 	        t(". "),
@@ -147,7 +147,7 @@ return {
         s("trig", {
 	        i(1, "1"),
 	        -- pos, function, argnodes, user_arg1
-	        d(2, lines, {1}, "Sample Text")
+	        d(2, lines, {1}, { user_args = "Sample Text" })
         }),
 
 

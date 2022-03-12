@@ -45,7 +45,7 @@ return {
 	    -- value of an insert_node.
 	    s("novel", {
 	        t("It was a dark and stormy night on "),
-	        d(1, utils.date_input, {}, "%A, %B %d of %Y"),
+	        d(1, utils.date_input, {}, { user_args = "%A, %B %d of %Y" }),
 	        t(" and the clocks were striking thirteen."),
 	    }),
 
