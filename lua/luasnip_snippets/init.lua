@@ -5,7 +5,7 @@ local M = {}
 --
 --
 
--- TODO: require(luasnip_snippets).setup{}
+-- TODO: setup()
 local snippets_path_user = "lua/snippets/"
 local snippets_path_internal = "lua/luasnip_snippets/snippets/"
 
@@ -27,12 +27,14 @@ function get_file_name(file)
 	return file:match("^.+/(.+)$")
 end
 
--- TODO: MERGE TABLES INSTEAD IF INSERTING!
--- i should use vim tbl extend here so that one can load snippets more easilly
--- and in a more separated manner rather than overwriting.
+-- FIX: USE VIM TBL MERGE
 --
--- this would allow for a require("luasnip_snippets").setup()
--- and then all snippets would nicely be merged into the table.
+-- understand what is going on here.
+--
+-- !!!! what happens if I move the user snippets dir under `lua/`???
+--
+-- 1. can I tbl merge entries into the LuaSnip main table?
+-- 2. can one merge each snippet here.
 function insert_snippets_into_table(t, modules_str, paths_table)
 	for _, snip_fpath in ipairs(paths_table) do
 		local snip_mname = get_file_name(snip_fpath):sub(1, -5)
@@ -52,27 +54,18 @@ function insert_snippets_into_table(t, modules_str, paths_table)
 	return t
 end
 
--- TODO: setup() pattern
--- 1. rename this to setup and follow the pattern that many other plugins does.
--- allow user to pass table containing list of paths where user would like to be able
--- to store snippets.
---
--- 2. allow user to select which filetypes she wants to merge into the luasnip table.
---    this makes sense since the snippets library can grow very large over time and so
---    it makes sense to allow user to select this.
---    default = merge all
---
--- 3.
-function M.load_snippets(opts)
+function M.setup(opts)
 	-- is it possible to select any path.
 	--
 	-- default path
 	if opts.snippets_path_user then
+	  print("user snip path:", opts.snippets_path_user)
 	else
 	end
 
 	if opts.use then
 		-- for each use string
+	  print("user snip use:", vim.inspect(opts.use))
 	else
 	  -- load all snippets
 	end
