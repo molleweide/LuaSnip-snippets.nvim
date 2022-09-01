@@ -1,11 +1,19 @@
+local ls = require("luasnip")
+
 local M = {}
 
--- copy path utils from doom so that it becomes a bit easier to manage where user puts his or her own
--- files
---
---
+-- 1. copy path utils doom system and paste below
+-- 2. put all paths path segments in table below.
+-- 3. print everything.
+-- 4. read luasnip manual again.
 
 -- TODO: setup()
+local settings = {
+	snippets_path_user = "lua/snippets/", -- rename: default
+	snippets_path_internal = "lua/luasnip_snippets/snippets/",
+	nvim_snippets_modules = "snippets.",
+	luasnip_snippets_modules = "luasnip_snippets.snippets.",
+}
 local snippets_path_user = "lua/snippets/"
 local snippets_path_internal = "lua/luasnip_snippets/snippets/"
 
@@ -54,29 +62,54 @@ function insert_snippets_into_table(t, modules_str, paths_table)
 	return t
 end
 
+local function get_snippets_files_from_dir(path)
+	-- local nvim_snippets = vim.api.nvim_get_runtime_file(snippets_path_user .. "*.lua", true)
+	-- local luasnip_snippets = vim.api.nvim_get_runtime_file(snippets_path_internal .. "*.lua", true)
+	-- return snippets
+end
+
+local function prepare_large_snippets_table() end
+
+local function merge_snippets_into_luasnip()
+	-- load snippets here...
+	--
+	-- Try this one here and see if it works:
+	--     ls.add_snippets(filetype, snippets)
+	--
+	--
+	-- What other possible loading mechanisms can we try here?
+	--
+	--
+	--
+end
+
 function M.setup(opts)
 	-- is it possible to select any path.
 	--
 	-- default path
 	if opts.snippets_path_user then
-	  print("user snip path:", opts.snippets_path_user)
+		print("user snip path:", opts.snippets_path_user)
 	else
 	end
 
 	if opts.use then
 		-- for each use string
-	  print("user snip use:", vim.inspect(opts.use))
+		print("user snip use:", vim.inspect(opts.use))
 	else
-	  -- load all snippets
+		-- load all snippets
 	end
 
 	print("load luasnip_snippets xxxx yyyyy")
 
 	local t = {}
 
+	-- refactor: into function loop over all snippets passed via `snippets_paths`
 	local nvim_snippets = vim.api.nvim_get_runtime_file(snippets_path_user .. "*.lua", true)
+
+
 	local luasnip_snippets = vim.api.nvim_get_runtime_file(snippets_path_internal .. "*.lua", true)
 
+	-- extend_luasnip_with_snippets()
 	t = insert_snippets_into_table(t, nvim_snippets_modules, nvim_snippets)
 	t = insert_snippets_into_table(t, luasnip_snippets_modules, luasnip_snippets)
 
