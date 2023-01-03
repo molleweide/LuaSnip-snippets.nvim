@@ -56,8 +56,6 @@ local PATHS = {
 	lua_pre = "lua/",
 }
 
--- TODO: paths to check for
-
 local settings = {
 	defaults = {
 		-- move these out
@@ -77,20 +75,8 @@ local settings = {
 	snippets_mod_path_internal = "luasnip_snippets.snippets",
 }
 
--- BUG: this one matches improperly for subdirs
---  a:  /Users/hjalmarjakobsson/.config/nvim/lua/user/snippets/lua/init.lua
---    user.snippets
---      init
---        b: user.snippets.init
---  a:  /Users/hjalmarjakobsson/.config/nvim/lua/user/snippets/lua/print.lua
---    user.snippets
---      print
---        b: user.snippets.print
 local function get_file_name(file)
-	-- lua/init.lua -> init.lua
-	--
-	-- /snippets/ (...) .lua
-	local s, e, f = file:find("/snippets/(.-)%.lua$")
+	local _, _, f = file:find("/snippets/(.-)%.lua$")
 	return f
 	-- return file:match("^.+/(.+)$")
 end
@@ -142,14 +128,29 @@ local function filter_by_ft(opts, mp)
 	return true
 end
 
+-- TODO: FINAL STRUCTURE
+--
+local all_snips = {
+	ft1 = {
+		{ snip = "<func>", origin_path = "...", mod_path = "..." },
+	},
+}
+
+-- TODO: collect
+-- {
+--   origin_path = ...,
+--   mod_path = ...
+-- }
 local function get_snippet_modpaths(opts)
 	local t_snippet_modules = {}
 	if opts.use_default_path then
 		local default_paths =
 			vim.api.nvim_get_runtime_file(settings.defaults.sys_path .. PATHS.sep_sys .. PATHS.lua_all, true)
 		for _, dp in ipairs(default_paths) do
-			local mp = settings.defaults.lua_path .. PATHS.sep_lua .. get_file_name(dp)
-			table.insert(t_snippet_modules, mp)
+			table.insert(t_snippet_modules, {
+				origin_path = dp,
+				mod_path = settings.defaults.lua_path .. PATHS.sep_lua .. get_file_name(dp),
+			})
 		end
 	end
 
@@ -157,11 +158,14 @@ local function get_snippet_modpaths(opts)
 		for _, user_path in ipairs(opts.paths) do
 			local up = PATHS.lua_pre .. user_path .. PATHS.sep_sys .. PATHS.lua_all
 			local t_paths = vim.api.nvim_get_runtime_file(up, true)
-			for _, snippets_file_path in ipairs(t_paths) do
+			for _, dp in ipairs(t_paths) do
 				local pre = user_path:gsub(PATHS.sep_sys, ".")
-				local post = get_file_name(snippets_file_path):gsub(PATHS.sep_sys, ".") --:sub(1, -5)
-				local full_path = pre .. PATHS.sep_lua .. post
-				table.insert(t_snippet_modules, full_path)
+				local post = get_file_name(dp):gsub(PATHS.sep_sys, ".") --:sub(1, -5)
+				-- table.insert(t_snippet_modules, full_path)
+				table.insert(t_snippet_modules, {
+					origin_path = dp,
+					mod_path = pre .. PATHS.sep_lua .. post,
+				})
 			end
 		end
 	end
@@ -169,9 +173,11 @@ local function get_snippet_modpaths(opts)
 	if opts.use_internal then
 		local luasnip_snippets_paths =
 			vim.api.nvim_get_runtime_file(settings.snippets_path_internal .. PATHS.sep_sys .. PATHS.lua_all, true)
-		for _, path in ipairs(luasnip_snippets_paths) do
-			local mp = settings.snippets_mod_path_internal .. PATHS.sep_lua .. get_file_name(path)
-			table.insert(t_snippet_modules, mp)
+		for _, dp in ipairs(luasnip_snippets_paths) do
+			table.insert(t_snippet_modules, {
+				origin_path = dp,
+				mod_path = settings.snippets_mod_path_internal .. PATHS.sep_lua .. get_file_name(dp),
+			})
 		end
 	end
 	return t_snippet_modules
@@ -179,7 +185,8 @@ end
 
 local function get_snippets(opts, t_snippet_modpaths)
 	local snippets_by_ft = {}
-	for _, mod_path in ipairs(t_snippet_modpaths) do
+	for _, t in ipairs(t_snippet_modpaths) do
+    local mod_path = t.mod_path
 		if mod_path:find("%.init$") then
 			mod_path = string.sub(mod_path, 1, string.len(mod_path) - 5)
 			-- print("sub:", mod_path)
@@ -194,7 +201,11 @@ local function get_snippets(opts, t_snippet_modpaths)
 						snippets_by_ft[ft] = {}
 					end
 					for _, s in pairs(snips) do
-						table.insert(snippets_by_ft[ft], s)
+						table.insert(snippets_by_ft[ft], {
+						  snip = s,
+						  origin_path = t.origin_path,
+						  mod_path = t.mod_path
+						})
 					end
 
 					-- if check_use_only(opts, mod_path) and filter_by_ft(opts, mod_path) then
@@ -213,7 +224,12 @@ local function get_snippets(opts, t_snippet_modpaths)
 						snippets_by_ft[ft] = {}
 					end
 					for _, s in pairs(sm) do
-						table.insert(snippets_by_ft[ft], s)
+						-- table.insert(snippets_by_ft[ft], s)
+						table.insert(snippets_by_ft[ft], {
+						  snip = s,
+						  origin_path = t.origin_path,
+						  mod_path = t.mod_path
+						})
 					end
 
 					-- if check_use_only(opts, mod_path) and filter_by_ft(opts, mod_path) then
@@ -231,6 +247,15 @@ local function get_snippets(opts, t_snippet_modpaths)
 	return snippets_by_ft
 end
 
+M.get_all_snippets_final = function(opts)
+	opts = vim.tbl_deep_extend("force", settings.defaults, opts or {})
+
+	local t_snippet_modpaths = get_snippet_modpaths(opts)
+
+	local snippets_by_ft = get_snippets(opts, t_snippet_modpaths)
+	return snippets_by_ft
+end
+
 ------
 --
 --
@@ -240,15 +265,20 @@ function M.setup(opts)
 	if log then
 		print("luasnip_snippets.setup()")
 	end
-	opts = vim.tbl_deep_extend("force", settings.defaults, opts or {})
-	local t_snippet_modpaths = get_snippet_modpaths(opts)
 
-	-- for _, path in ipairs(t_snippet_modules) do
-	-- 	print("snippet path:", path)
-	-- 	-- print(vim.inspect(t_snippet_modules)) --
-	-- end
-
-	local snippets_by_ft = get_snippets(opts, t_snippet_modpaths)
+	-- opts = vim.tbl_deep_extend("force", settings.defaults, opts or {})
+	--
+	-- -- TODO: i need to store the path for each snippet so that we can
+	-- --          get back to them in picker
+	--
+	-- local t_snippet_modpaths = get_snippet_modpaths(opts)
+	--
+	-- -- for _, path in ipairs(t_snippet_modules) do
+	-- -- 	print("snippet path:", path)
+	-- -- 	-- print(vim.inspect(t_snippet_modules)) --
+	-- -- end
+	--
+	local snippets_by_ft = M.get_all_snippets_final(opts)--get_snippets(opts, t_snippet_modpaths)
 
 	-- for _, mod_path in ipairs(t_snippet_modpaths) do
 	--
@@ -300,13 +330,14 @@ function M.setup(opts)
 	-- 	end
 	-- end
 
-	-- -- TODO: move loading to here
-	-- -- P(snippets_by_ft, {depth=1})
-	-- --
-	-- --
-	-- -- now I could move to here and then
-	for ft, snips in pairs(snippets_by_ft) do
-		load(ft, snips)
+
+	for ft, t_snips in pairs(snippets_by_ft) do
+	  local flatten_snips = {}
+	  for _, s in pairs(t_snips) do
+	    table.insert(flatten_snips, s.snip)
+	  end
+
+		load(ft, flatten_snips)
 		-- if check_use_only(opts, mod_path) and filter_by_ft(opts, mod_path) then
 		-- 	if log then
 		-- 		print(mod_path)
