@@ -9,15 +9,6 @@ local M = {}
 --
 --              get all snippet modules()
 --
---
---      - READ: telescope-luasnip picker code
---              -> integrate with `luasnip_snippets` crud manager
---
---      - HOW DO I GET ALL FILETYPES IN A LIST FOR FUZZY???
---
---        i. supply list in configs
---        ii. nvim api get filetypes list?
---
 --      - PICKER TYPES
 --
 --        2 pickers -> filetype AND snippet treesitter symbols
@@ -241,6 +232,24 @@ M.get_all_snippets_final = function(opts)
 
 	local snippets_by_ft = get_snippets(opts, t_snippet_modpaths)
 	return snippets_by_ft
+end
+
+M.flatten_snippets = function(ts)
+	local flatten_snips = {}
+	for ft, t_snips in pairs(ts) do
+		for _, s in pairs(t_snips) do
+		  s["filetype"] = ft
+			table.insert(flatten_snips, s)
+		end
+
+	end
+	return flatten_snips
+end
+
+M.get_snippets_flat = function(opts)
+	local t_snippets = M.get_all_snippets_final(opts) --get_snippets(opts, t_snippet_modpaths)
+
+  return M.flatten_snippets(t_snippets)
 end
 
 M.load_snips = function(ts)
