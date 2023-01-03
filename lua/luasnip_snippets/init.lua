@@ -179,6 +179,9 @@ local function get_snippets(opts, t_snippet_modpaths)
 						snippets_by_ft[ft] = {}
 					end
 					for _, s in pairs(snips) do
+						s["filetype"] = ft
+						s["origin_file_path"] = t.origin_path
+						s["origin_file_mod_path"] = t.mod_path
 						table.insert(snippets_by_ft[ft], {
 							snip = s,
 							origin_path = t.origin_path,
@@ -203,6 +206,9 @@ local function get_snippets(opts, t_snippet_modpaths)
 					end
 					for _, s in pairs(sm) do
 						-- table.insert(snippets_by_ft[ft], s)
+						s["filetype"] = ft
+						s["origin_file_path"] = t.origin_path
+						s["origin_file_mod_path"] = t.mod_path
 						table.insert(snippets_by_ft[ft], {
 							snip = s,
 							origin_path = t.origin_path,
@@ -230,18 +236,16 @@ M.get_all_snippets_final = function(opts)
 
 	local t_snippet_modpaths = get_snippet_modpaths(opts)
 
-	local snippets_by_ft = get_snippets(opts, t_snippet_modpaths)
-	return snippets_by_ft
+	return get_snippets(opts, t_snippet_modpaths)
 end
 
 M.flatten_snippets = function(ts)
 	local flatten_snips = {}
 	for ft, t_snips in pairs(ts) do
 		for _, s in pairs(t_snips) do
-		  s["filetype"] = ft
+			s["filetype"] = ft
 			table.insert(flatten_snips, s)
 		end
-
 	end
 	return flatten_snips
 end
@@ -249,15 +253,31 @@ end
 M.get_snippets_flat = function(opts)
 	local t_snippets = M.get_all_snippets_final(opts) --get_snippets(opts, t_snippet_modpaths)
 
-  return M.flatten_snippets(t_snippets)
+	return M.flatten_snippets(t_snippets)
 end
 
 M.load_snips = function(ts)
+	local ls = require("luasnip")
+	local parse = ls.snippet
+
 	for ft, t_snips in pairs(ts) do
 		local flatten_snips = {}
 		for _, s in pairs(t_snips) do
 			table.insert(flatten_snips, s.snip)
+
+			-- P(s.snip, { depth = 1 })
+
+			-- P(s.snip)
+
+			-- table.insert(
+			-- 	flatten_snips,
+			-- 	s.snip[4] and s.snip[4](s.snip[1], s.snip[2], s.snip[3]) or parse(s.snip[1], s.snip[2], s.snip[3])
+			-- )
 		end
+
+		-- TODO: transform the table into s(...)
+
+		-- if func -> load else if table -> transform
 
 		load(ft, flatten_snips)
 		-- if check_use_only(opts, mod_path) and filter_by_ft(opts, mod_path) then
@@ -280,6 +300,8 @@ function M.setup(opts)
 	end
 
 	local t_snippets = M.get_all_snippets_final(opts) --get_snippets(opts, t_snippet_modpaths)
+
+	-- P(t_snippets, { depth = 4})
 
 	M.load_snips(t_snippets)
 
