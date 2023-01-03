@@ -132,7 +132,7 @@ local function get_snippet_modpaths(opts)
 		end
 	end
 
-	if opts.paths then
+	if opts.use_personal then
 		for _, user_path in ipairs(opts.paths) do
 			local up = PATHS.lua_pre .. user_path .. PATHS.sep_sys .. PATHS.lua_all
 			local t_paths = vim.api.nvim_get_runtime_file(up, true)
@@ -233,6 +233,8 @@ end
 
 M.get_all_snippets_final = function(opts)
 	opts = vim.tbl_deep_extend("force", settings.defaults, opts or {})
+
+	P(opts)
 
 	local t_snippet_modpaths = get_snippet_modpaths(opts)
 
