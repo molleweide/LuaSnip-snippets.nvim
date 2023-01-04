@@ -4,42 +4,16 @@ local load = ls.add_snippets
 
 local M = {}
 
--- TODO:
+-- TODO: SNIPPET HELPER
 --
---      - REFACTOR: paths so that the for loops get a little bit more cleaned
---                  up
+--      DYNAMIC HELPER SNIPPET FOR BUILDING NEW SNIPPETS
 --
---              get all snippet modules()
---
---      - PICKER TYPES
---
---        2 pickers -> filetype AND snippet treesitter symbols
---
---      - SNIPPET PICKER ACTIONS
---
---        1. select filetype
---        2. create filetype for current.
---        3. open file at position of snippet
---        4. open file at `new_snippet` first/last??
---
---        >>> reuse actions/commands from dui
---
---
---      - UPON ENTER SNIPPETS FILE:
---
---        trigger a snippet in position so that the user gets put
---        directly into a new snippet snippet.
---
---      - DYNAMIC SNIPPET HELPER SNIPPET
---
---        use dynamic snippet that allows user to get a custom streamlined
---        experience for creating snippets.
---
---
---      - CREATE SNIPPET FROM VISUAL SELECTION / TREESITTER NODE EXPANSION
---
---        ui workflow for easilly selecting code that should go into a dynamic
---        snippet for easy dynamic reuse.
+--      use treesitter to check if all identifiers have been
+--      required into the file. use a basic map for all basic
+--      luasnip node requirerers and then insert them at the
+--      top with the other requirerers so that you never
+--      have to think about this.
+
 
 local PATHS = {
 	sep_lua = ".",
@@ -112,16 +86,9 @@ local function check_use_only(opts, mp)
 	if type(opts.ft_use_only) ~= "table" or #opts.ft_use_only == 0 then
 		return true
 	end
-
-	-- for _, ft in pairs(opts.ft_use_only) do
-	-- if mp:match("snippets." .. ft) then
-	-- 	return true
-	-- end
 	if vim.tbl_contains(opts.ft_use_only, mp) then
 		return true
 	end
-	-- end
-
 	return false
 end
 
@@ -138,10 +105,8 @@ local function filter_by_ft(opts, mp)
 end
 
 -- TODO: somehow make this into one tight sinle for loop instead of having three.
---
 --      I believe this would require a function that maps a real path
 --      to its equivalent module path.
---
 local function get_snippet_modpaths(opts)
 	local get_rtf = vim.api.nvim_get_runtime_file
 	local t_snippet_modules = {}
@@ -153,7 +118,6 @@ local function get_snippet_modpaths(opts)
 			})
 		end
 	end
-
 	if opts.use_personal then
 		for _, user_path in ipairs(opts.paths) do
 			for _, dp in ipairs(get_rtf("lua/" .. user_path .. "/**/*.lua", true)) do
@@ -164,7 +128,6 @@ local function get_snippet_modpaths(opts)
 			end
 		end
 	end
-
 	if opts.use_internal then
 		for _, dp in ipairs(get_rtf(settings.snippets_path_internal .. "/**/*.lua", true)) do
 			table.insert(t_snippet_modules, {
@@ -196,6 +159,7 @@ local function get_snippets(opts, t_s_mp)
 		end
 	end
 
+  -- TODO: filter out filetypes
 	for _, t in ipairs(t_s_mp) do
 		local mod_path, sm = require_snip_mods(t.mod_path)
 		if type(sm) == "table" then
@@ -252,12 +216,6 @@ M.load_snips = function(ts)
 			table.insert(flatten_snips, s.snip)
 		end
 		load(ft, flatten_snips)
-		-- if check_use_only(opts, mod_path) and filter_by_ft(opts, mod_path) then
-		-- 	if log then
-		-- 		print(mod_path)
-		-- 	end
-		-- 	load(ft, snips)
-		-- end
 	end
 end
 
